@@ -31,8 +31,8 @@ jobs:
       - name: Run lint
         run: npm run lint
 
-      - name: run code
-        run: npm run dev
+      - name: run build
+        run: npm run build
 
       - name: Check commit messages
         uses: wagoid/commitlint-github-action@v3
