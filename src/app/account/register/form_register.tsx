@@ -19,8 +19,10 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
-// Xác thực ngày sinh và đảm bảo mật khẩu và repassword khớp nhau
 const formSchema = z
   .object({
     name: z.string().min(2, {
@@ -45,10 +47,12 @@ const formSchema = z
   })
   .refine((data) => data.password === data.repassword, {
     message: "Passwords do not match.",
-    path: ["repassword"], // Đặt lỗi vào trường repassword
+    path: ["repassword"],
   });
 
 const FormRegister = () => {
+  const toast = useToast();
+  const router = useRouter();
   const [date, setDate] = React.useState<Date | undefined>(undefined);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -59,12 +63,38 @@ const FormRegister = () => {
       password: "",
       repassword: "",
       address: "",
-      dob: undefined, // Thay đổi kiểu ngày sinh từ string sang Date
+      dob: undefined, 
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { repassword, ...valuesWithoutRepassword } = values;
+    const dataUser = { ...valuesWithoutRepassword, role: "user" };
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BEHOST}/user/register`, {
+      method: "POST",
+      body: JSON.stringify(dataUser),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+    const data = await response.json()
+    if (data.status !== 404) {
+      toast.toast({
+        variant: "default",
+        title: "Đăng ký thành công",
+        description: "Tài khoản hợp lệ!",
+      })
+      setTimeout(()=>{
+        router.push("/account/login")
+      },1500)
+    }else{
+      toast.toast({
+        variant: "destructive",
+        title: "Đăng nhập thất bại!",
+        description: "Vui lòng kiểm tra lại tài khoản, hoặc mật khẩu!",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      })
+    }
   }
 
   return (
