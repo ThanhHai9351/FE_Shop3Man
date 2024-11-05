@@ -1,9 +1,10 @@
+import FormRegister from '@/app/account/register/form_register';
 import React from 'react';
 
 const Page = () => {
     return (
-        <div>
-            register
+        <div className='flex justify-center m-5' >
+            <FormRegister/>
         </div>
     );
 }
