@@ -1,11 +1,7 @@
-import React from 'react';
+import React from "react"
 
 const Page = () => {
-    return (
-        <div>
-            collections
-        </div>
-    );
+  return <div>collections</div>
 }
 
-export default Page;
+export default Page

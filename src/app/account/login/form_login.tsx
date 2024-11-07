@@ -7,9 +7,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { useAppContext } from "@/app/app_provider"
 import { useRouter } from "next/navigation"
-import {  useToast } from "@/hooks/use-toast"
+import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
-
 
 const formSchema = z.object({
   email: z.string().email({
@@ -20,11 +19,9 @@ const formSchema = z.object({
   }),
 })
 
-
 const FormLogin = () => {
-  const toast = useToast();
+  const toast = useToast()
   const router = useRouter()
-
 
   const { setSessionToken } = useAppContext()
   const form = useForm<z.infer<typeof formSchema>>({
@@ -39,7 +36,7 @@ const FormLogin = () => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BEHOST}/user/login`, {
       method: "POST",
       body: JSON.stringify(values),
-      credentials: 'include', 
+      credentials: "include",
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -53,15 +50,15 @@ const FormLogin = () => {
         title: "Đăng nhập thành công",
         description: "Tài khoản hợp lệ!",
       })
-      setTimeout(()=>{
+      setTimeout(() => {
         router.push("/")
-      },1500)
-    }else{
+      }, 1500)
+    } else {
       toast.toast({
         variant: "destructive",
         title: "Đăng nhập thất bại!",
         description: "Vui lòng kiểm tra lại tài khoản, hoặc mật khẩu!",
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
+        action: <ToastAction altText='Try again'>Try again</ToastAction>,
       })
     }
   }
@@ -95,7 +92,7 @@ const FormLogin = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder='******' {...field} />
+                <Input type='password' placeholder='******' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
