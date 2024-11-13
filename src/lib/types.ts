@@ -8,3 +8,8 @@ export interface IAccount {
     avata?:string;      
     display_avata?:string;
 }
+
+export interface ICategory  {
+    name: string;
+    image: string;
+}

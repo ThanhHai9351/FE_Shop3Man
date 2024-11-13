@@ -8,6 +8,7 @@ import { Suspense } from "react"
 import AppProvider from "@/app/app_provider"
 import { Toaster } from "@/components/ui/toaster"
 import { cookies } from "next/headers"
+import ChatButtonDialog from "@/shared/button/chat_button_dialog"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -41,6 +42,7 @@ export default async function RootLayout({
             <Header />
             {children}
             <Footer />
+            <ChatButtonDialog />
             <Toaster />
           </Suspense>
         </AppProvider>
