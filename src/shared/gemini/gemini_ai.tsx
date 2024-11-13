@@ -12,7 +12,7 @@ const GeminiAi = () => {
   const [userInput, setUserInput] = useState<string>("")
   const [chatHistory, setChatHistory] = useState<IChatBox[]>([{ type: "bot", message: "Xin chào!Tôi có thể giúp gì cho bạn!" }])
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const genAI = new GoogleGenerativeAI("AIzaSyAYv7cHfYj0EW_qgMFli-m-JqjbZU2mEJs")
+  const genAI = new GoogleGenerativeAI(`${process.env.NEXT_PUBLIC_AIKEY}`);
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
   const sendMessage = async () => {
     if (userInput.trim() === "") return
