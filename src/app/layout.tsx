@@ -31,12 +31,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const cookiesStore = await cookies();
-  const accessToken = cookiesStore.get("accessToken")?.value || "";
+  const cookiesStore = await cookies()
+  const accessToken = cookiesStore.get("accessToken")?.value || ""
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <AppProvider initialSessionToken={accessToken} >
+        <AppProvider initialSessionToken={accessToken}>
           <Suspense fallback={<div>Loading</div>}>
             <SalesNav />
             <Header />

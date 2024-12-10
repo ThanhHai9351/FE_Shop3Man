@@ -20,19 +20,22 @@ const Page = () => {
         console.log(error)
       }
     }
-      getCollections()
+    getCollections()
   }, [])
   console.log(collections)
   return (
     <>
-      {collections.length ? 
-      <div>
-      {collections.map((itemCate,index)=>(
-        <div key={index}>
-           {itemCate.name} {itemCate.image}
+      {collections.length ? (
+        <div>
+          {collections.map((itemCate, index) => (
+            <div key={index}>
+              {itemCate.name} {itemCate.image}
+            </div>
+          ))}
         </div>
-      ))}
-        </div> : <div>Loading</div>}
+      ) : (
+        <div>Loading</div>
+      )}
     </>
   )
 }

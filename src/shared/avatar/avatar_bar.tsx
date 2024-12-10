@@ -23,16 +23,15 @@ const AvatarBar = () => {
         console.log(error)
       }
     }
-    if(sessionToken.length)
-    {
+    if (sessionToken.length) {
       getUser()
-    }else{
-      setAvatar("");
+    } else {
+      setAvatar("")
     }
   }, [sessionToken])
   return (
     <Avatar>
-      <AvatarImage src={avatar ? avatar : 'https://github.com/shadcn.png'} alt='@shadcn' />
+      <AvatarImage src={avatar ? avatar : "https://github.com/shadcn.png"} alt='@shadcn' />
       <AvatarFallback>US</AvatarFallback>
     </Avatar>
   )
