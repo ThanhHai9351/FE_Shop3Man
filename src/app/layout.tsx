@@ -9,6 +9,7 @@ import AppProvider from "@/app/app_provider"
 import { Toaster } from "@/components/ui/toaster"
 import { cookies } from "next/headers"
 import ChatButtonDialog from "@/shared/button/chat_button_dialog"
+import { Providers } from "@/store/provider"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,20 +32,22 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const cookiesStore = await cookies();
-  const accessToken = cookiesStore.get("accessToken")?.value || "";
+  const cookiesStore = await cookies()
+  const accessToken = cookiesStore.get("accessToken")?.value || ""
   return (
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <AppProvider initialSessionToken={accessToken} >
-          <Suspense fallback={<div>Loading</div>}>
-            <SalesNav />
-            <Header />
-            {children}
-            <Footer />
-            <ChatButtonDialog />
-            <Toaster />
-          </Suspense>
+        <AppProvider initialSessionToken={accessToken}>
+          <Providers>
+            <Suspense fallback={<div>Loading</div>}>
+              <SalesNav />
+              <Header />
+              {children}
+              <Footer />
+              <ChatButtonDialog />
+              <Toaster />
+            </Suspense>
+          </Providers>
         </AppProvider>
       </body>
     </html>

@@ -23,10 +23,10 @@ const AppProvider = ({
   initialSessionToken?: string
 }) => {
   const [sessionToken, setSessionToken] = useState(initialSessionToken || "")
-  const router = useRouter();
-  useEffect(()=>{
-    router.refresh();
-  },[sessionToken])
+  const router = useRouter()
+  useEffect(() => {
+    router.refresh()
+  }, [sessionToken])
   return <AppContext.Provider value={{ sessionToken, setSessionToken }}>{children}</AppContext.Provider>
 }
 

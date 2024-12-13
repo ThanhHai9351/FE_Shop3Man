@@ -1,7 +1,7 @@
 "use client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { z, type infer } from "zod"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -9,6 +9,7 @@ import { useAppContext } from "@/app/app_provider"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
+import { useLoginAccountMutation } from "@/store/services/account.service"
 
 const formSchema = z.object({
   email: z.string().email({
@@ -22,6 +23,7 @@ const formSchema = z.object({
 const FormLogin = () => {
   const toast = useToast()
   const router = useRouter()
+  const [loginAccount, loginAccountResult] = useLoginAccountMutation()
 
   const { setSessionToken } = useAppContext()
   const form = useForm<z.infer<typeof formSchema>>({
@@ -33,31 +35,31 @@ const FormLogin = () => {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BEHOST}/user/login`, {
-      method: "POST",
-      body: JSON.stringify(values),
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-    const data = await response.json()
-    if (data.status !== 404) {
-      setSessionToken(data.accessToken)
-      console.log(data.accessToken)
-      toast.toast({
-        variant: "default",
-        title: "Đăng nhập thành công",
-        description: "Tài khoản hợp lệ!",
-      })
-      setTimeout(() => {
-        router.push("/")
-      }, 1500)
-    } else {
+    try {
+      const result = await loginAccount(values).unwrap()
+      if (result.status === 200) {
+        setSessionToken(result.accessToken)
+        toast.toast({
+          variant: "default",
+          title: "Login Successfully!",
+          description: "Account Validate!",
+        })
+        setTimeout(() => {
+          router.push("/")
+        }, 1500)
+      } else {
+        toast.toast({
+          variant: "destructive",
+          title: "Login Failed!",
+          description: "Please to check your information again!",
+          action: <ToastAction altText='Try again'>Try again</ToastAction>,
+        })
+      }
+    } catch {
       toast.toast({
         variant: "destructive",
-        title: "Đăng nhập thất bại!",
-        description: "Vui lòng kiểm tra lại tài khoản, hoặc mật khẩu!",
+        title: "Network failed!",
+        description: "Please to check network before register again!",
         action: <ToastAction altText='Try again'>Try again</ToastAction>,
       })
     }
