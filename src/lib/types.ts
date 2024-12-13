@@ -1,15 +1,19 @@
 export interface IAccount {
-  name: string
+  _id: string
+  firstName: string
+  lastName: string
   email: string
   password: string
   role: string
-  address?: string
-  dob?: Date
-  avata?: string
-  display_avata?: string
+  dob: Date
+  avatarUrl?: string
+  phone?: string
 }
 
 export interface ICategory {
+  _id: string
   name: string
-  image: string
+  imageUrl: string
+  description: string
+  slug: string
 }

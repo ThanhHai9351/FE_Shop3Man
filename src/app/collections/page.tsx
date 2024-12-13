@@ -1,42 +1,42 @@
 "use client"
+import CategoryCard from "@/app/collections/CategoryCard"
+import SwiperCategory from "@/app/collections/swiper-category"
+import Breadcrumbs from "@/components/ui/Breadcrumbs"
 import { ICategory } from "@/lib/types"
-import React, { useEffect, useState } from "react"
+import { useGetCategoriesQuery } from "@/store/services/category.service"
+import Link from "next/link"
+import React from "react"
 
 const Page = () => {
-  const [collections, setCollections] = useState<ICategory[]>([])
-  useEffect(() => {
-    const getCollections = async () => {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BEHOST}/category/getAll`, {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        })
-        const categoryData = await response.json()
-        setCollections(categoryData.data)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getCollections()
-  }, [])
-  console.log(collections)
+  const { isFetching, data } = useGetCategoriesQuery({})
+  const categories: ICategory[] | undefined = data?.data
+
+  const breadcrumbItems = [
+    {
+      title: (
+        <Link className='hover:underline' href={"/"}>
+          Home
+        </Link>
+      ),
+    },
+    { title: "Collections" },
+  ]
+
+  if (isFetching) {
+    return <div>Loading ... </div>
+  }
   return (
-    <>
-      {collections.length ? (
-        <div>
-          {collections.map((itemCate, index) => (
-            <div key={index}>
-              {itemCate.name} {itemCate.image}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div>Loading</div>
-      )}
-    </>
+    <div className='p-5'>
+      <div className='container'>
+        <Breadcrumbs Items={breadcrumbItems} />
+      </div>
+      <div className='pt-5 pb-5'>
+        <h2 className='scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mb-5'>
+          TOP CATEGORY
+        </h2>
+        {categories && <SwiperCategory categories={categories} />}
+      </div>
+    </div>
   )
 }
 

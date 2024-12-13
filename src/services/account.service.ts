@@ -1,9 +1,11 @@
+import configs from "@/lib/config"
+
 export const getUserFromToken = async (token: string) => {
   try {
     if (token.length === 0) {
       return null
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BEHOST}/user/me`, {
+    const response = await fetch(`${configs.HOST}/user/me`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -16,7 +18,7 @@ export const getUserFromToken = async (token: string) => {
     if (!data) {
       return null
     }
-    return data
+    return data.data
   } catch (err) {
     console.error("Error fetching user:", err)
     throw err

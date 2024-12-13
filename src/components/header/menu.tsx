@@ -1,32 +1,25 @@
+"use client"
+
+import type { ICategory } from "@/lib/types"
+import { useGetCategoriesQuery } from "@/store/services/category.service"
 import Link from "next/link"
 
-const dataMenu: { name: string; href: string }[] = [
-  {
-    name: "Collections",
-    href: "/collections",
-  },
-  {
-    name: "Products",
-    href: "/products",
-  },
-  {
-    name: "Blogs",
-    href: "/blogs",
-  },
-  {
-    name: "Contact",
-    href: "/contact",
-  },
-]
-
 const Menu = () => {
+  const { isFetching, data } = useGetCategoriesQuery({})
+  const categories: ICategory[] | undefined = data?.data
+  if (isFetching) {
+    return <div>...</div>
+  }
   return (
-    <div className='p-3'>
-      {dataMenu.map((menuItem, index) => (
-        <Link key={index} href={menuItem.href} className={"p-3 text-slate-50"}>
-          {menuItem.name}
-        </Link>
-      ))}
+    <div className='p-5'>
+      {categories &&
+        categories.map((menuItem, index) => {
+          return (
+            <Link key={index} href={`/collections/${menuItem.slug}`} className='gap-2 p-3 text-slate-50'>
+              <span className='mx-2'>{menuItem.name}</span>
+            </Link>
+          )
+        })}
     </div>
   )
 }
