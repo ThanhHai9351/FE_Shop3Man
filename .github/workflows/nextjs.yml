@@ -39,7 +39,7 @@ jobs:
   #       run: npm run build
 
   Deploy-Production:
-    # needs: Test-Build
+    needs: TestAndBuild
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
