@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
+import Header from "@/components/header/header"
 import SalesNav from "@/components/header/SalesNav"
 import { Suspense } from "react"
 import AppProvider from "@/app/app_provider"
@@ -10,8 +11,7 @@ import ChatButtonDialog from "@/shared/button/chat_button_dialog"
 import { Providers } from "@/store/provider"
 import Loading from "@/components/ui/loading"
 import { Footer } from "@/components/footer/footer"
-import dynamic from "next/dynamic"
-import Header from "@/components/header/header"
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
