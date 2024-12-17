@@ -17,3 +17,14 @@ export interface ICategory {
   description: string
   slug: string
 }
+
+export interface IProduct {
+  _id: string
+  name: string
+  price: number
+  slug: string
+  imageUrl: string
+  description: string
+  categoryID: string
+  items?: any
+}

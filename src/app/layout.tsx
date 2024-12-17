@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./globals.css"
-import Footer from "@/components/footer/footer"
 import Header from "@/components/header/header"
 import SalesNav from "@/components/header/SalesNav"
 import { Suspense } from "react"
@@ -10,6 +9,9 @@ import { Toaster } from "@/components/ui/toaster"
 import { cookies } from "next/headers"
 import ChatButtonDialog from "@/shared/button/chat_button_dialog"
 import { Providers } from "@/store/provider"
+import Loading from "@/components/ui/loading"
+import { Footer } from "@/components/footer/footer"
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -35,11 +37,11 @@ export default async function RootLayout({
   const cookiesStore = await cookies()
   const accessToken = cookiesStore.get("accessToken")?.value || ""
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppProvider initialSessionToken={accessToken}>
           <Providers>
-            <Suspense fallback={<div>Loading</div>}>
+            <Suspense fallback={<Loading />}>
               <SalesNav />
               <Header />
               {children}

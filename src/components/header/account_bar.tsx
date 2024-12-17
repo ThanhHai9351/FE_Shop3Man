@@ -44,7 +44,7 @@ const AccountBar = async () => {
                   <Button variant='default'>Sign In</Button>
                 </Link>
               </div>
-              <div className='grid gap-2'>
+              <div className='grid gap-2 mt-3'>
                 <p className='font-mono text-sm'>
                   Dont have an account!
                   <Link className='text-red-500 mx-2 font-semibold' href={"/account/register"}>
