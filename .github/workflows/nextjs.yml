@@ -23,11 +23,13 @@ jobs:
         run: npm install
       - name: Install Playwright Browsers
         run: npx playwright install
+      - name: Build Project # Build trước khi test
+        run: npm run build
       - name: Run Tests
         run: npm run test
 
   Build:
-    needs: Test 
+    needs: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -35,7 +37,6 @@ jobs:
         run: npm install
       - name: Build Project
         run: npm run build
-
 
  
   Deploy-Production:
