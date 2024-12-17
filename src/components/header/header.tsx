@@ -9,7 +9,7 @@ import React from "react"
 
 const Header = () => {
   return (
-    <div>
+    <>
       <div className='bg-slate-600 p-5 flex items-center justify-between'>
         <Logo width={50} />
         <SearchText />
@@ -22,7 +22,7 @@ const Header = () => {
       <div className='border-neutral-300 border-b bg-slate-300'>
         <Menu />
       </div>
-    </div>
+    </>
   )
 }
 

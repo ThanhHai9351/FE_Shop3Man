@@ -17,7 +17,10 @@ export const productApi = createApi({
   refetchOnFocus: true, // Re-fetch when the browser regains focus
   refetchOnReconnect: true, // Re-fetch on reconnect
   endpoints: (build) => ({
-    getProducts: build.query<ProductResponse, { limit?: number; page?: number; search?: string; sortDir?: string; priceFrom?: number, priceTo?: number}>({
+    getProducts: build.query<
+      ProductResponse,
+      { limit?: number; page?: number; search?: string; sortDir?: string; priceFrom?: number; priceTo?: number }
+    >({
       query: ({ limit, page, search, sortDir, priceFrom, priceTo }) => {
         const params = new URLSearchParams()
         if (limit) params.append("limit", String(limit))

@@ -47,7 +47,9 @@ const Logo = ({ width, className = "" }: { width: number; className?: String }) 
           d='M47,23a1,1,0,0,0-.61-.92l-14-6a1,1,0,0,0-.78,0l-14,6A1,1,0,0,0,17,23h0V41a1,1,0,0,0,.61.92c15.35,6.58,14.19,6.21,14.74,6l14-6A1,1,0,0,0,47,41V23ZM32,18.09,43.46,23,32,27.91,20.54,23ZM19,24.52l12,5.14V45.48L19,40.34ZM45,40.34,33,45.48V29.66l12-5.14Z'
         ></path>
       </svg>
-      <h3 className={`scroll-m-20 text-2xl font-semibold tracking-tight text-white mx-2 font-sans italic ${className}`}>Shop3Man</h3>
+      <h3 className={`scroll-m-20 text-2xl font-semibold tracking-tight text-white mx-2 font-sans italic ${className}`}>
+        Shop3Man
+      </h3>
     </Link>
   )
 }

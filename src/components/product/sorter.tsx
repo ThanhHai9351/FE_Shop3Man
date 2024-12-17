@@ -4,18 +4,14 @@ import { MdKeyboardArrowDown } from "react-icons/md"
 
 interface SortProps {
   setSortDir: (value: string) => void
-  setSortBy: (value: string) => void
-  sortBy: string
   sortDir: string
 }
 
-const Sorter: FC<SortProps> = ({ sortBy, sortDir, setSortDir, setSortBy }) => {
+const Sorter: FC<SortProps> = ({ sortDir, setSortDir }) => {
   const sortOptions = [
-    { key: 1, value: "All", sortBy: "", sortDir: "" },
-    { key: 2, value: "Alphabetically A-Z", sortBy: "name", sortDir: "asc" },
-    { key: 3, value: "Alphabetically Z-A", sortBy: "name", sortDir: "desc" },
-    { key: 4, value: "Increase Price", sortBy: "price", sortDir: "asc" },
-    { key: 5, value: "Decrease Price", sortBy: "price", sortDir: "desc" },
+    { key: 1, value: "All", sortDir: "" },
+    { key: 2, value: "Increase Price", sortDir: "asc" },
+    { key: 3, value: "Decrease Price", sortDir: "desc" },
   ]
 
   const [activeSortKey, setActiveSortKey] = useState(1)
@@ -30,9 +26,7 @@ const Sorter: FC<SortProps> = ({ sortBy, sortDir, setSortDir, setSortBy }) => {
           <div className='flex items-center gap-3'>
             <Popover as='div' className='relative inline-block w-full'>
               <Popover.Button className='flex w-full items-center justify-between gap-2 rounded border border-primary/15 px-5 py-4 dark:border-white/15 lg:min-w-60'>
-                <span>
-                  {sortOptions.find((option) => option.sortBy === sortBy && option.sortDir === sortDir)?.value}
-                </span>
+                <span>{sortOptions.find((option) => option.sortDir === sortDir)?.value}</span>
                 <MdKeyboardArrowDown />
               </Popover.Button>
               <Transition
@@ -52,7 +46,6 @@ const Sorter: FC<SortProps> = ({ sortBy, sortDir, setSortDir, setSortBy }) => {
                         type='button'
                         onClick={() => {
                           setActiveSortKey(option.key)
-                          setSortBy(option.sortBy)
                           setSortDir(option.sortDir)
                         }}
                         className='w-full px-3 py-1 text-left text-sm focus:outline-none hover:bg-slate-300'

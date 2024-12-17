@@ -1,6 +1,6 @@
-export default function Home() {
+export default function Page() {
   return (
-    <div>
+    <div suppressHydrationWarning={true}>
       <p>sdfsdf</p>
     </div>
   )

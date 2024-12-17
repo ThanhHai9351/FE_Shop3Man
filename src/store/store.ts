@@ -9,10 +9,13 @@ const store = configureStore({
   reducer: {
     [accountApi.reducerPath]: accountApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
-    [productApi.reducerPath]: productApi.reducer
+    [productApi.reducerPath]: productApi.reducer,
   },
   middleware(getDefaultMiddleware) {
-    return getDefaultMiddleware().concat(accountApi.middleware).concat(categoryApi.middleware).concat(productApi.middleware)
+    return getDefaultMiddleware()
+      .concat(accountApi.middleware)
+      .concat(categoryApi.middleware)
+      .concat(productApi.middleware)
   },
 })
 

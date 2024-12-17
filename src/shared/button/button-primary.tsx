@@ -2,7 +2,6 @@ import type { ButtonProps } from "@/shared/button/Button"
 import Button from "@/shared/button/Button"
 import React from "react"
 
-
 export interface ButtonPrimaryProps extends ButtonProps {
   href?: any
 }
