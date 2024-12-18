@@ -1,3 +1,73 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react/jsx-runtime",
+    "prettier" // Add "prettier" last to override other style configs
+  ],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@typescript-eslint/recommended"],
+      "parser": "@typescript-eslint/parser",
+      "rules": {
+        "@typescript-eslint/no-unused-expressions": "off"
+      }
+    }
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src"]
+      }
+    }
+  },
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "requireConfigFile": false
+  },
+  "plugins": ["prettier", "react", "react-hooks"],
+  "rules": {
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "error",
+    "no-console": "off",
+    "no-unused-vars": [
+      "error",
+      {
+        "ignoreRestSiblings": false
+      }
+    ],
+    "prettier/prettier": [
+      "warn",
+      {
+        "bracketSpacing": true,
+        "printWidth": 140,
+        "singleQuote": true,
+        "trailingComma": "none",
+        "tabWidth": 4,
+        "useTabs": false,
+        "endOfLine": "auto"
+      }
+    ],
+     "no-restricted-imports": [
+          "error",
+         {
+           "patterns": ["@mui/*/*/*", "!@mui/material/test-utils/*"]
+         }
+     ]
+  }
 }

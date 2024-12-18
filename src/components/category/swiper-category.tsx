@@ -1,6 +1,6 @@
 "use client"
 
-import CategoryCard from "@/app/collections/CategoryCard"
+import CategoryCard from "@/components/category/CategoryCard"
 import type { ICategory } from "@/lib/types"
 import { useEffect } from "react"
 import Swiper from "swiper"
