@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import ChatHistory from "@/components/gemini/chat_history"
 import Loading from "@/components/gemini/loading"

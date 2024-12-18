@@ -26,8 +26,8 @@ export interface IProduct {
   imageUrl: string
   description: string
   categoryId: string
-  items?: ISize[]
-  categoryName?: string
+  items: ISize[]
+  category?: ICategory
 }
 
 export interface ISize {

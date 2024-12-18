@@ -49,6 +49,7 @@ const Page = () => {
   if (isFetching) {
     return <Loading />
   }
+
   return (
     <div className='p-5'>
       <div className='container'>
