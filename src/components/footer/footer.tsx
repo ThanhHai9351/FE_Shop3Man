@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator"
-import Logo from "@/shared/logo/logo"
+import Logo from "@/components/logo/logo"
 
 export function Footer() {
   return (

@@ -29,10 +29,10 @@ const Page = () => {
     setPrice(price)
   }
 
-  const resetFilter = () =>{
+  const resetFilter = () => {
     setSearch("")
     setPrice([0, 20000000])
-    setSortDir("");
+    setSortDir("")
   }
 
   const breadcrumbItems = [

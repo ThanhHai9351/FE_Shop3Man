@@ -25,6 +25,19 @@ export interface IProduct {
   slug: string
   imageUrl: string
   description: string
-  categoryID: string
-  items?: any
+  categoryId: string
+  items?: ISize[]
+  categoryName?: string
+}
+
+export interface ISize {
+  _id: number
+  items: IColor[]
+}
+
+export interface IColor {
+  _id: string
+  color: string
+  stockQuantity: number
+  price: number
 }

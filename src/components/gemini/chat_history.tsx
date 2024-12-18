@@ -1,4 +1,4 @@
-import { IChatBox } from "@/shared/gemini/gemini_ai"
+import { IChatBox } from "@/components/gemini/gemini_ai"
 import ReactMarkdown from "react-markdown"
 const ChatHistory = ({ chatHistory }: { chatHistory: IChatBox[] }) => {
   return (

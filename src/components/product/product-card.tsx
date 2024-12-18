@@ -1,7 +1,7 @@
 import type { FC } from "react"
 import { IProduct } from "@/lib/types"
 import Link from "next/link"
-import ButtonPrimary from "@/shared/button/button-primary"
+import ButtonPrimary from "@/components/button/button-primary"
 import { formatCurrencyVND } from "@/helpers/format"
 
 interface ProductCardProps extends IProduct {

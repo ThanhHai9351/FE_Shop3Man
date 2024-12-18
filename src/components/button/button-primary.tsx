@@ -1,5 +1,5 @@
-import type { ButtonProps } from "@/shared/button/Button"
-import Button from "@/shared/button/Button"
+import type { ButtonProps } from "@/components/button/Button"
+import Button from "@/components/button/Button"
 import React from "react"
 
 export interface ButtonPrimaryProps extends ButtonProps {
