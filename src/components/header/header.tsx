@@ -3,7 +3,7 @@ import CartSideBar from "@/components/header/cart-side-bar"
 import Menu from "@/components/header/menu"
 import Menulog from "@/components/header/menulog"
 import SearchText from "@/components/header/search-text"
-import Logo from "@/shared/logo/logo"
+import Logo from "@/components/logo/logo"
 import Link from "next/link"
 import React from "react"
 

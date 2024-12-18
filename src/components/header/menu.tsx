@@ -9,7 +9,6 @@ import { GiMailShirt } from "react-icons/gi"
 
 const icons = [GiMailShirt, FaShirtsinbulk, FaApple]
 
-
 const Menu = () => {
   const { isFetching, data } = useGetCategoriesQuery({})
   const categories: ICategory[] | undefined = data?.data

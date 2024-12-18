@@ -8,6 +8,13 @@ interface ProductResponse {
   data: IProduct[]
 }
 
+interface ProductDetailResponse {
+  status: number
+  message: string
+  data: IProduct
+}
+
+
 export const productApi = createApi({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({ baseUrl: `${configs.HOST}` }),
@@ -41,7 +48,12 @@ export const productApi = createApi({
         return [{ type: "Products" as const, id: "LIST" }]
       },
     }),
+
+    getProductDetail: build.query<ProductDetailResponse, string>({
+      query: (slug: string) => 
+         `product/${slug}`
+    }),
   }),
 })
 
-export const { useGetProductsQuery } = productApi
+export const { useGetProductsQuery, useGetProductDetailQuery } = productApi

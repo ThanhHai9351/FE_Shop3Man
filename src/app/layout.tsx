@@ -7,11 +7,10 @@ import { Suspense } from "react"
 import AppProvider from "@/app/app_provider"
 import { Toaster } from "@/components/ui/toaster"
 import { cookies } from "next/headers"
-import ChatButtonDialog from "@/shared/button/chat_button_dialog"
+import ChatButtonDialog from "@/components/button/chat_button_dialog"
 import { Providers } from "@/store/provider"
 import Loading from "@/components/ui/loading"
 import { Footer } from "@/components/footer/footer"
-
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

@@ -4,7 +4,7 @@ import { useState } from "react"
 import { MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetOverlay } from "@/components/ui/sheet"
-import GeminiAi from "@/shared/gemini/gemini_ai"
+import GeminiAi from "@/components/gemini/gemini_ai"
 
 const ChatButtonDialog = () => {
   const [isOpen, setIsOpen] = useState(false)

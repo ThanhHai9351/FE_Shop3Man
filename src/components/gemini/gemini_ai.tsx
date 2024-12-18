@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
-import ChatHistory from "@/shared/gemini/chat_history"
-import Loading from "@/shared/gemini/loading"
+import ChatHistory from "@/components/gemini/chat_history"
+import Loading from "@/components/gemini/loading"
 import { GoogleGenerativeAI } from "@google/generative-ai"
 import React, { useState } from "react"
 export interface IChatBox {
