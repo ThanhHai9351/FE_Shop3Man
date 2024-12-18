@@ -36,7 +36,7 @@ export default async function RootLayout({
   const cookiesStore = await cookies()
   const accessToken = cookiesStore.get("accessToken")?.value || ""
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppProvider initialSessionToken={accessToken}>
           <Providers>

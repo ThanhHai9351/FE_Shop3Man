@@ -1,5 +1,5 @@
 "use client"
-import SwiperCategory from "@/app/collections/swiper-category"
+import SwiperCategory from "@/components/category/swiper-category"
 import Breadcrumbs from "@/components/ui/Breadcrumbs"
 import Loading from "@/components/ui/loading"
 import { ICategory } from "@/lib/types"
@@ -30,7 +30,7 @@ const Page = () => {
       <div className='container'>
         <Breadcrumbs Items={breadcrumbItems} />
       </div>
-      <div className='pt-5 pb-5'>
+      <div className='m-6'>
         <h2 className='scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 mb-5'>
           TOP CATEGORY
         </h2>

@@ -1,10 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  productionBrowserSourceMaps: true,
+  devIndicators: {buildActivity: true},
   experimental: {
     serverActions: {
-      bodySizeLimit: "10mb", // Đặt giới hạn payload lên 10 MB
+      bodySizeLimit: "10mb",
     },
   },
   images: {

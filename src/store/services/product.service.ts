@@ -14,7 +14,6 @@ interface ProductDetailResponse {
   data: IProduct
 }
 
-
 export const productApi = createApi({
   reducerPath: "productApi",
   baseQuery: fetchBaseQuery({ baseUrl: `${configs.HOST}` }),
@@ -50,8 +49,7 @@ export const productApi = createApi({
     }),
 
     getProductDetail: build.query<ProductDetailResponse, string>({
-      query: (slug: string) => 
-         `product/${slug}`
+      query: (slug: string) => `product/${slug}`,
     }),
   }),
 })
