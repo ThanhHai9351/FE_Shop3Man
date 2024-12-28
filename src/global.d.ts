@@ -1,1 +1,1 @@
-declare module "@glidejs/glide/dist/glide.modular.esm";
+declare module "@glidejs/glide/dist/glide.modular.esm"

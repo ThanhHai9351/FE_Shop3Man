@@ -10,12 +10,12 @@ interface CategoryResponse {
 
 export const categoryApi = createApi({
   reducerPath: "categoryApi",
-  baseQuery: fetchBaseQuery({ baseUrl: `${configs.HOST}` }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${configs.HOST}/api` }),
   tagTypes: ["Categories"],
-  keepUnusedDataFor: 60, // Cache storage duration
-  refetchOnMountOrArgChange: 30, // Re-fetch duration
-  refetchOnFocus: true, // Re-fetch when the browser regains focus
-  refetchOnReconnect: true, // Re-fetch on reconnect
+  // keepUnusedDataFor: 60, // Cache storage duration
+  // refetchOnMountOrArgChange: 30, // Re-fetch duration
+  // refetchOnFocus: true, // Re-fetch when the browser regains focus
+  // refetchOnReconnect: true, // Re-fetch on reconnect
   endpoints: (build) => ({
     getCategories: build.query<CategoryResponse, { limit?: number; page?: number; search?: string; sortDir?: string }>({
       query: ({ limit, page, search, sortDir }) => {
@@ -24,8 +24,14 @@ export const categoryApi = createApi({
         if (page) params.append("page", String(page))
         if (search) params.append("search", search)
         if (sortDir) params.append("sortDir", sortDir)
-        console.log("ssdsd", `category?${params.toString()}`)
-        return `category?${params.toString()}`
+        return {
+          url: `category?${params.toString()}`,
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }
       },
       providesTags: (results) => {
         if (results) {

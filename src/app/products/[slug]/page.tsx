@@ -1,18 +1,21 @@
 "use client"
+import { useAppContext } from "@/app/app_provider"
 import GuideSession from "@/components/guide/guide-session"
 import RelatedProducts from "@/components/product/related-products"
 import SessionProduct from "@/components/product/session-product"
 import Breadcrumbs from "@/components/ui/Breadcrumbs"
 import Loading from "@/components/ui/loading"
+import { getToLocalstorage } from "@/lib/storage"
 import type { IProduct } from "@/lib/types"
 import { useGetProductDetailQuery } from "@/store/services/product.service"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import React from "react"
 
-const Page = () => {
+const Page = async () => {
   const path = usePathname()
-  const { isFetching, data } = useGetProductDetailQuery(path.split("/")[2] as string)
+  const accessToken = getToLocalstorage("accessToken") || ""
+  const { isFetching, data } = useGetProductDetailQuery({ slug: path.split("/")[2] as string, accessToken })
   const product: IProduct | undefined = data?.data
 
   if (isFetching) {
@@ -47,7 +50,6 @@ const Page = () => {
         </div>
       </div>
 
-      {/* Related Products */}
       <RelatedProducts />
 
       <GuideSession />

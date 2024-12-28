@@ -1,15 +1,16 @@
+import type { RegisterFormInputs } from "@/app/account/register/form_register"
 import configs from "@/lib/config"
 import type { IAccount } from "@/lib/types"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export const accountApi = createApi({
   reducerPath: "accountApi",
-  baseQuery: fetchBaseQuery({ baseUrl: `${configs.HOST}` }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${configs.HOST}/api` }),
   tagTypes: ["Accounts"],
-  keepUnusedDataFor: 60, // cache lưu trữ trong vòng 60s
-  refetchOnMountOrArgChange: 30,
-  refetchOnFocus: true, //gọi lại api khi focus
-  refetchOnReconnect: true, // gọi lại api khi truy cập lại web
+  // keepUnusedDataFor: 60, // cache lưu trữ trong vòng 60s
+  // refetchOnMountOrArgChange: 30,
+  // refetchOnFocus: true, //gọi lại api khi focus
+  // refetchOnReconnect: true, // gọi lại api khi truy cập lại web
   endpoints: (build) => ({
     getAccount: build.query<ResponseAccount, string>({
       query: (accessToken: string) => {
@@ -37,8 +38,8 @@ export const accountApi = createApi({
         }
       },
     }),
-    registerAccount: build.mutation<ResponseAccount, Omit<IAccount, "_id">>({
-      query: (values: Omit<IAccount, "_id">) => {
+    registerAccount: build.mutation<ResponseAccount, Omit<RegisterFormInputs, "repassword">>({
+      query: (values: Omit<RegisterFormInputs, "repassword">) => {
         return {
           url: `auth/register`,
           method: "POST",

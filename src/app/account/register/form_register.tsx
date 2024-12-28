@@ -6,12 +6,7 @@ import { z } from "zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import * as React from "react"
-import { CalendarIcon } from "@radix-ui/react-icons"
-import { format } from "date-fns"
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
@@ -34,20 +29,22 @@ const formSchema = z
     repassword: z.string().min(3, {
       message: "Password must be at least 3 characters long.",
     }),
-    dob: z.date({
-      required_error: "Please select a valid date.",
-      invalid_type_error: "That's not a valid date.",
-    }),
   })
   .refine((data) => data.password === data.repassword, {
     message: "Passwords do not match.",
     path: ["repassword"],
   })
-
+export type RegisterFormInputs = {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+  repassword: string
+  role: string
+}
 const FormRegister = () => {
   const toast = useToast()
   const router = useRouter()
-  const [date, setDate] = React.useState<Date | undefined>(undefined)
   const [registerAccount, registerAccountResult] = useRegisterAccountMutation()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -58,7 +55,6 @@ const FormRegister = () => {
       email: "",
       password: "",
       repassword: "",
-      dob: undefined,
     },
   })
 
@@ -163,43 +159,6 @@ const FormRegister = () => {
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
                 <Input type='password' placeholder='******' {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name='dob'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Date of Birth</FormLabel>
-              <FormControl>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] justify-start text-left font-normal",
-                        !field.value && "text-muted-foreground",
-                      )}
-                    >
-                      <CalendarIcon />
-                      {field.value ? format(new Date(field.value), "PPP") : <span>Pick a date</span>}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className='w-auto p-0' align='start'>
-                    <Calendar
-                      mode='single'
-                      selected={field.value ? new Date(field.value) : undefined}
-                      onSelect={(selectedDate) => {
-                        setDate(selectedDate)
-                        field.onChange(selectedDate)
-                      }}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
               </FormControl>
               <FormMessage />
             </FormItem>

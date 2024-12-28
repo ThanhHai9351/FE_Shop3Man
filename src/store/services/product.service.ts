@@ -6,6 +6,7 @@ interface ProductResponse {
   status: number
   message: string
   data: IProduct[]
+  totalPage: number
 }
 
 interface ProductDetailResponse {
@@ -16,12 +17,12 @@ interface ProductDetailResponse {
 
 export const productApi = createApi({
   reducerPath: "productApi",
-  baseQuery: fetchBaseQuery({ baseUrl: `${configs.HOST}` }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${configs.HOST}/api` }),
   tagTypes: ["Products"],
-  keepUnusedDataFor: 60, // Cache storage duration
-  refetchOnMountOrArgChange: 30, // Re-fetch duration
-  refetchOnFocus: true, // Re-fetch when the browser regains focus
-  refetchOnReconnect: true, // Re-fetch on reconnect
+  // keepUnusedDataFor: 60, // Cache storage duration
+  // refetchOnMountOrArgChange: 30, // Re-fetch duration
+  // refetchOnFocus: true, // Re-fetch when the browser regains focus
+  // refetchOnReconnect: true, // Re-fetch on reconnect
   endpoints: (build) => ({
     getProducts: build.query<
       ProductResponse,
@@ -48,8 +49,18 @@ export const productApi = createApi({
       },
     }),
 
-    getProductDetail: build.query<ProductDetailResponse, string>({
-      query: (slug: string) => `product/${slug}`,
+    getProductDetail: build.query<ProductDetailResponse, { slug: string; accessToken: string }>({
+      query: (values: { slug: string; accessToken: string }) => {
+        return {
+          url: `product/${values.slug}`,
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            Authorization: `Bearer ${values.accessToken}`,
+          },
+        }
+      },
     }),
   }),
 })

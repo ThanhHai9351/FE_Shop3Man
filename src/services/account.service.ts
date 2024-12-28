@@ -5,7 +5,8 @@ export const getUserFromToken = async (token: string) => {
     if (token.length === 0) {
       return null
     }
-    const response = await fetch(`${configs.HOST}/user/me`, {
+
+    const response = await fetch(`${configs.HOST}/api/user/me`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -13,12 +14,19 @@ export const getUserFromToken = async (token: string) => {
         "Content-Type": "application/json; charset=UTF-8",
       },
     })
-    const data = await response.json()
 
-    if (!data) {
+    if (!response.ok) {
+      console.error(`Server returned ${response.status}: ${response.statusText}`)
       return null
     }
-    return data.data
+
+    try {
+      const data = await response.json()
+      return data?.data || null
+    } catch (jsonError) {
+      console.error("Failed to parse JSON:", jsonError)
+      return null
+    }
   } catch (err) {
     console.error("Error fetching user:", err)
     throw err

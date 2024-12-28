@@ -49,7 +49,13 @@ const SessionProduct: FC<Props> = ({ product }) => {
       <div className='col-span-12 md:col-span-6 lg:col-span-4'>
         <span className='mb-2 text-xs'>STOCKMART</span>
         <h1 className='mb-0 text-3xl font-bold'>{product.name}</h1>
-        {product.items?.length ? <ProductSelector product={product} /> : ""}
+        {product.items?.length ? (
+          <ProductSelector product={product} />
+        ) : (
+          <h3 className='scroll-m-20 text-xl font-semibold tracking-tight mt-1 mb-2 p-3 bg-red-600 text-white'>
+            Sold Out!
+          </h3>
+        )}
         <div className='mb-6 flex'>
           <div className='p-1 text-green-700'>
             <FaCheck />

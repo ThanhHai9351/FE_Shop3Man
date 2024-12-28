@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation"
 import { useToast } from "@/hooks/use-toast"
 import { ToastAction } from "@/components/ui/toast"
 import { useLoginAccountMutation } from "@/store/services/account.service"
+import { saveToLocalstorage } from "@/lib/storage"
 
 const formSchema = z.object({
   email: z.string().email({
@@ -24,7 +25,6 @@ const FormLogin = () => {
   const toast = useToast()
   const router = useRouter()
   const [loginAccount, loginAccountResult] = useLoginAccountMutation()
-
   const { setSessionToken } = useAppContext()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,6 +39,8 @@ const FormLogin = () => {
       const result = await loginAccount(values).unwrap()
       if (result.status === 200) {
         setSessionToken(result.accessToken)
+        saveToLocalstorage("accessToken", result.accessToken)
+        saveToLocalstorage("refreshToken", result.refreshToken)
         toast.toast({
           variant: "default",
           title: "Login Successfully!",

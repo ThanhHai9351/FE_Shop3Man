@@ -26,6 +26,7 @@ export interface IProduct {
   imageUrl: string
   description: string
   categoryId: string
+  isWhistlisted?: boolean
   items: ISize[]
   category?: ICategory
 }

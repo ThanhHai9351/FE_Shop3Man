@@ -1,6 +1,7 @@
 "use client"
 import { useAppContext } from "@/app/app_provider"
 import { Button } from "@/components/ui/button"
+import { clearStorage } from "@/lib/storage"
 import React from "react"
 
 const ButtonLogout = () => {
@@ -17,6 +18,7 @@ const ButtonLogout = () => {
       const data = await response.json()
       if (data.status === 200) {
         setSessionToken("")
+        clearStorage()
       }
     } catch (err) {
       console.log(err)

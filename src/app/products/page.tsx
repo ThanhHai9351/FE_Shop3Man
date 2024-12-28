@@ -11,18 +11,19 @@ import Link from "next/link"
 import React, { useState } from "react"
 
 const Page = () => {
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
   const [sortDir, setSortDir] = useState("")
   const [search, setSearch] = useState("")
   const [price, setPrice] = useState([0, 20000000])
   const { isFetching, data } = useGetProductsQuery({
-    page: page,
+    page: page - 1,
     sortDir: sortDir,
     search: search,
     priceFrom: price[0],
     priceTo: price[1],
   })
   const products: IProduct[] | undefined = data?.data
+  const totalPages: number = data?.totalPage || 1
 
   const fetchData = (search: string, price: number[]) => {
     setSearch(search)
@@ -33,6 +34,7 @@ const Page = () => {
     setSearch("")
     setPrice([0, 20000000])
     setSortDir("")
+    setPage(1)
   }
 
   const breadcrumbItems = [
@@ -45,6 +47,12 @@ const Page = () => {
     },
     { title: "Products" },
   ]
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setPage(newPage)
+    }
+  }
 
   if (isFetching) {
     return <Loading />
@@ -72,6 +80,24 @@ const Page = () => {
           <div className='col-span-12 md:col-span-7 lg:col-span-9'>
             {products ? <ProductListing products={products} /> : "Not found!"}
           </div>
+        </div>
+        {/* Pagination */}
+        <div className='flex justify-center mt-6 space-x-2'>
+          <Button onClick={() => handlePageChange(1)} disabled={page === 1} variant='ghost' size='sm'>
+            First
+          </Button>
+          <Button onClick={() => handlePageChange(page - 1)} disabled={page === 1} variant='outline' size='sm'>
+            Previous
+          </Button>
+          <span className='flex items-center px-3 text-sm font-medium'>
+            Page {page} of {totalPages}
+          </span>
+          <Button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages} variant='outline' size='sm'>
+            Next
+          </Button>
+          <Button onClick={() => handlePageChange(totalPages)} disabled={page === totalPages} variant='ghost' size='sm'>
+            Last
+          </Button>
         </div>
       </div>
     </div>

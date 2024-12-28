@@ -4,18 +4,21 @@ import { accountApi } from "@/store/services/account.service"
 import { setupListeners } from "@reduxjs/toolkit/query"
 import { categoryApi } from "@/store/services/category.service"
 import { productApi } from "@/store/services/product.service"
+import { whistlistApi } from "@/store/services/whistlist.service"
 
 const store = configureStore({
   reducer: {
     [accountApi.reducerPath]: accountApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
+    [whistlistApi.reducerPath]: whistlistApi.reducer,
   },
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware()
       .concat(accountApi.middleware)
       .concat(categoryApi.middleware)
       .concat(productApi.middleware)
+      .concat(whistlistApi.middleware)
   },
 })
 
